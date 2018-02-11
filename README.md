@@ -1,4 +1,4 @@
-# Deep water bathymetry
+# Deep water bathymetry (WIP)
 
 ## Dependencies
 
@@ -48,23 +48,7 @@ CREATE TABLE deep_water_areas (
 )
 ```
 
-## ???
-
-```SQL
-INSERT INTO deep_water_areas (geom, elev) (
-    SELECT (g.dump).geom AS geom FROM (
-        SELECT 1, ST_Dump(ST_Split(ST_MakeEnvelope(23.96, 36.02, 26.29, 38.15, 4326), (SELECT geom FROM deep_water_contour_lines WHERE gid = 2099))) AS dump
-    ) AS g
-)
-
-INSERT INTO deep_water_areas (geom, elev) (
-    SELECT (g.dump).geom AS geom FROM (
-        SELECT 1, ST_Dump(ST_Split((SELECT geom FROM deep_water_contour_lines WHERE gid = 2099), (SELECT geom FROM deep_water_contour_lines WHERE gid = 2099))) AS dump
-    ) AS g
-)
-```
-
-### Test deep water
+### Test deep/shallow water
 
 A query to test if the given area is to the left of the contour. For testing if the area is "deep" I assume that
 the contours were creates using `gdal_contour` (or a similar program) that leaves leaves the hill to the right and
